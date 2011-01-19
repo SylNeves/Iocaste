@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<web-app id="iocaste_server" xmlns="http://java.sun.com/xml/ns/javaee"
+   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+   xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd"
+   version="2.5"> 
+    <description>iocaste server</description>
+    <display-name>iocaste server</display-name>
+    
+    <servlet>
+        <servlet-name>iocaste_srv</servlet-name>
+        <servlet-class>org.iocaste.server.Servlet</servlet-class>
+    </servlet>
+    
+    <servlet-mapping>
+        <servlet-name>iocaste_srv</servlet-name>
+        <url-pattern>/index.html</url-pattern>
+    </servlet-mapping>
+</web-app>

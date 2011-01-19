@@ -1,0 +1,24 @@
+<project name="iocaste">
+    <property name="targetdir" value="${basedir}/bin"/>
+    <property name="targetdir-classes" value="${basedir}/bin-classes"/>
+    <property name="targetdir-common" value="${basedir}/bin-common"/>
+	<property name="builddir" value="${basedir}/build"/>
+
+	<target name="clean">
+        <delete dir="${builddir}"/>
+	</target>
+		
+    <target name="compile" depends="clean">
+        <copy todir="${builddir}">
+            <fileset dir="${targetdir}"/>
+        </copy>
+    	
+        <copy todir="${builddir}/WEB-INF/classes">
+        	<fileset dir="${targetdir-classes}"/>
+    	</copy>
+    	
+        <jar basedir="${targetdir-common}" destfile="${builddir}/WEB-INF/lib/iocaste-common.jar"/>
+    	<war basedir="${builddir}" destfile="${basedir}/iocaste-server.war"/>
+        <delete dir="${builddir}"/>
+    </target>
+</project>
