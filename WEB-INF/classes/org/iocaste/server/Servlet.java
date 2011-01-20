@@ -1,11 +1,14 @@
 package org.iocaste.server;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.ObjectOutputStream;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
+import org.iocaste.protocol.Message;
 
 
 public class Servlet extends HttpServlet {
@@ -20,8 +23,12 @@ public class Servlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp)
             throws ServletException, IOException {
-        InputStream is = req.getInputStream();
+        ObjectOutputStream out = new ObjectOutputStream(resp.getOutputStream());
+        Message message = new Message();
         
+        message.add("teste", "chamado de server");
+        out.writeObject(message);
+        System.out.println("chamado.");
     }
 
 }
