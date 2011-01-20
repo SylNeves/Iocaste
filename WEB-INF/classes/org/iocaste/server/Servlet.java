@@ -1,14 +1,14 @@
 package org.iocaste.server;
 import java.io.IOException;
-import java.io.InputStream;
-import java.io.ObjectOutputStream;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.iocaste.protocol.Iocaste;
 import org.iocaste.protocol.Message;
+import org.iocaste.protocol.Service;
 
 
 public class Servlet extends HttpServlet {
@@ -23,12 +23,27 @@ public class Servlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp)
             throws ServletException, IOException {
-        ObjectOutputStream out = new ObjectOutputStream(resp.getOutputStream());
+        Service service = new Service();
         Message message = new Message();
         
-        message.add("teste", "chamado de server");
-        out.writeObject(message);
-        System.out.println("chamado.");
+        service.setInputStream(req.getInputStream());
+        service.setOutputStream(resp.getOutputStream());
+        
+        try {
+            message = service.getMessage();
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        }
+        
+        switch(message.getId()) {
+        case Iocaste.LOGIN:
+            System.out.println("tentativa de login");
+            message.clear();
+            message.add("return", true);
+            
+            service.messageReturn(message);
+            break;
+        }
     }
 
 }
