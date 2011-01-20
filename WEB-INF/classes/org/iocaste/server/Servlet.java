@@ -38,10 +38,8 @@ public class Servlet extends HttpServlet {
         switch(message.getId()) {
         case Iocaste.LOGIN:
             System.out.println("tentativa de login");
-            message.clear();
-            message.add("return", true);
+            service.messageReturn(message, true);
             
-            service.messageReturn(message);
             break;
         }
     }
