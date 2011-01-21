@@ -32,9 +32,13 @@ public abstract class ClientServlet extends HttpServlet {
         if (ex != null)
             throw new IOException(ex);
         
-        init(iocaste);
+        try {
+            init(iocaste);
+        } catch (Exception e) {
+            throw new ServletException(e);
+        }
     }
     
-    protected abstract void init(Iocaste iocaste);
+    protected abstract void init(Iocaste iocaste) throws Exception;
 
 }

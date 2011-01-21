@@ -13,21 +13,13 @@ public final class Iocaste {
         service = new Service(urlname);
     }
     
-    public final boolean login(String user, String secret) {
+    public final boolean login(String user, String secret) throws IOException, ClassNotFoundException {
         Message message = new Message();
         
         message.setId("login");
         message.add("user", user);
         message.add("secret", secret);
         
-        try {
-            return (Boolean)service.call(message);
-        } catch (ClassNotFoundException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        
-        return false;
+        return (Boolean)service.call(message);
     }
 }

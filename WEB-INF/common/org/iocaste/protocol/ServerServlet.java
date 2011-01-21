@@ -1,6 +1,8 @@
 package org.iocaste.protocol;
 
 import java.io.IOException;
+import java.util.HashMap;
+import java.util.Map;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -10,9 +12,12 @@ import javax.servlet.http.HttpServletResponse;
 public abstract class ServerServlet extends HttpServlet {
     private static final long serialVersionUID = 7408336035974886402L;
     private Service service;
+    private Map<String, Function> functions;
 
     public ServerServlet() {
         service = new Service();
+        functions = new HashMap<String, Function>();
+        config();
     }
     
     @Override
@@ -25,6 +30,7 @@ public abstract class ServerServlet extends HttpServlet {
     protected final void doPost(HttpServletRequest req, HttpServletResponse resp)
             throws ServletException, IOException {
         Message message;
+        Function function;
         
         service.setInputStream(req.getInputStream());
         service.setOutputStream(resp.getOutputStream());
@@ -35,14 +41,19 @@ public abstract class ServerServlet extends HttpServlet {
             e.printStackTrace();
             return;
         }
+
+        function = functions.get(message.getId());
         
-        init(service, message);
+        try {
+            service.messageReturn(message, function.run(message));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
     
-    /**
-     * Ponto de entrada do servidor
-     * @param service
-     * @param message
-     */
-    protected abstract void init(Service service, Message message);
+    protected final void addFunction(String name, Function function) {
+        functions.put(name, function);
+    }
+    
+    protected abstract void config();
 }
