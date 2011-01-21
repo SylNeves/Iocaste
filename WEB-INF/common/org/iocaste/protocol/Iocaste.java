@@ -3,8 +3,6 @@ package org.iocaste.protocol;
 import java.io.IOException;
 
 public final class Iocaste {
-    public static final int RETURN = 0;
-    public static final int LOGIN = 1;
     private Service service;
     
     public Iocaste() throws IOException {
@@ -18,7 +16,7 @@ public final class Iocaste {
     public final boolean login(String user, String secret) {
         Message message = new Message();
         
-        message.setId(Iocaste.LOGIN);
+        message.setId("login");
         message.add("user", user);
         message.add("secret", secret);
         

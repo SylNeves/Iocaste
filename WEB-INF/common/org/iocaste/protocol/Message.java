@@ -7,13 +7,13 @@ import java.util.Map;
 public class Message implements Serializable {
     private static final long serialVersionUID = 4538161172762638611L;
     private Map<String, Object> values;
-    private int id;
+    private String id;
     
     public Message() {
         values = new HashMap<String, Object>();
     }
     
-    public final void setId(int id) {
+    public final void setId(String id) {
         this.id = id;
     }
     
@@ -25,7 +25,7 @@ public class Message implements Serializable {
         values.put(name, value);
     }
     
-    public final int getId() {
+    public final String getId() {
         return id;
     }
     

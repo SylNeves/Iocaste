@@ -64,7 +64,7 @@ public class Service {
         ObjectOutputStream oos = new ObjectOutputStream(os);
         
         message.clear();
-        message.setId(0);
+        message.setId(null);
         message.add("return", object);
         
         oos.writeObject(message);
