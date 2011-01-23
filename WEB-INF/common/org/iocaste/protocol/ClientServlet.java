@@ -9,8 +9,9 @@ import javax.servlet.http.HttpServletResponse;
 
 public abstract class ClientServlet extends HttpServlet {
     private static final long serialVersionUID = 3823216617015765316L;
-    Iocaste iocaste;
-    Exception ex;
+    private Iocaste iocaste;
+    private Exception ex;
+    private HttpServletRequest req;
     
     public ClientServlet() {
         try {
@@ -32,11 +33,17 @@ public abstract class ClientServlet extends HttpServlet {
         if (ex != null)
             throw new IOException(ex);
         
+        this.req = req;
+        
         try {
             init(iocaste);
         } catch (Exception e) {
             throw new ServletException(e);
         }
+    }
+    
+    protected final String getValue(String name) {
+        return req.getParameter(name);
     }
     
     protected abstract void init(Iocaste iocaste) throws Exception;
