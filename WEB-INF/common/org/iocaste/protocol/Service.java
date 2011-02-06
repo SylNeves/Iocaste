@@ -10,7 +10,6 @@ import java.net.URLConnection;
 
 public class Service {
     private URL url;
-    private URLConnection urlcon;
     private InputStream is;
     private OutputStream os;
     
@@ -18,10 +17,6 @@ public class Service {
     
     public Service(String urlname) throws IOException {
       url = new URL(urlname);
-      urlcon = url.openConnection();
-      
-      urlcon.setDoInput(true);
-      urlcon.setDoOutput(true);
     }
     
     public final void setInputStream(InputStream is) {
@@ -45,9 +40,10 @@ public class Service {
         Message response;
         ObjectOutputStream oos;
         ObjectInputStream ois;
+        URLConnection urlcon = url.openConnection();
         
-        if (urlcon == null)
-            return null;
+        urlcon.setDoInput(true);
+        urlcon.setDoOutput(true);
   
         oos = new ObjectOutputStream(urlcon.getOutputStream());
         oos.writeObject(message);
