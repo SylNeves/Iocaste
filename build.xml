@@ -18,7 +18,9 @@
     	</copy>
     	
         <jar basedir="${targetdir-common}" destfile="${basedir}/iocaste-common.jar"/>
-    	<copy todir="${builddir}/WEB-INF/lib" file="${basedir}/iocaste-common.jar"/>
+    	<copy todir="${builddir}/WEB-INF/lib">
+    		<fileset file="${basedir}/*.jar"/>
+    	</copy>
     	
     	<war basedir="${builddir}" destfile="${basedir}/${ant.project.name}.war"/>
         <delete dir="${builddir}"/>

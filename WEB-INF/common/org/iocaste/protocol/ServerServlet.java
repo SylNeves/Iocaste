@@ -9,14 +9,19 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.hibernate.SessionFactory;
+import org.hibernate.cfg.Configuration;
+
 public abstract class ServerServlet extends HttpServlet {
     private static final long serialVersionUID = 7408336035974886402L;
     private Service service;
+    private SessionFactory sessionFactory;
     private Map<String, Function> functions;
-
+    
     public ServerServlet() {
         service = new Service();
         functions = new HashMap<String, Function>();
+        sessionFactory = new Configuration().configure().buildSessionFactory();
         config();
     }
     
@@ -53,6 +58,7 @@ public abstract class ServerServlet extends HttpServlet {
     
     protected final void addFunction(String name, Function function) {
         functions.put(name, function);
+        function.setSessionFactory(sessionFactory);
     }
     
     protected abstract void config();
