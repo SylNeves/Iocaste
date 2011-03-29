@@ -5,8 +5,6 @@
 <hibernate-configuration>
     <session-factory>
         <!-- Database connection settings -->
-        <property name="session_factory_name">java:iocaste/sessionfactory</property>
-        
         <property name="connection.datasource">java:/comp/env/jdbc/iocaste</property>
         
         <!-- JDBC connection pool (use the built-in) -->

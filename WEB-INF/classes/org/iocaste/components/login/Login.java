@@ -19,15 +19,16 @@ public class Login extends AbstractFunction {
         String secret = (String)message.get("secret");
         
         if (message.getId().equals("login")) {
-            users = select("users", new Object[] {message.get("user")});
+            users = select("users", new Object[] {username});
             
             if (users == null)
                 return false;
             
-            for (Object object: users) {
+            for (Object object : users) {
                 user = (User)object;
                 
-                if (user.getName().equals(username) && user.getSecret().equals(secret))
+                if (user.getName().equals(username) &&
+                        user.getSecret().equals(secret))
                     return true;
             }
         }

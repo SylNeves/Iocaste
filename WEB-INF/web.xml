@@ -16,6 +16,10 @@
         <url-pattern>/index.html</url-pattern>
     </servlet-mapping>
     
+    <listener>
+        <listener-class>org.iocaste.protocol.HibernateListener</listener-class>
+    </listener>
+    
     <resource-ref>
         <description>iocaste db access</description>
         <res-ref-name>jdbc/iocaste</res-ref-name>

@@ -10,7 +10,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.hibernate.SessionFactory;
-import org.hibernate.cfg.Configuration;
 
 public abstract class ServerServlet extends HttpServlet {
     private static final long serialVersionUID = 7408336035974886402L;
@@ -21,7 +20,7 @@ public abstract class ServerServlet extends HttpServlet {
     public ServerServlet() {
         service = new Service();
         functions = new HashMap<String, Function>();
-        sessionFactory = new Configuration().configure().buildSessionFactory();
+        sessionFactory = HibernateListener.getSessionFactory();
         config();
     }
     
