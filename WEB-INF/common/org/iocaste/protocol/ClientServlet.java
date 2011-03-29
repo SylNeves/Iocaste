@@ -46,6 +46,10 @@ public abstract class ClientServlet extends HttpServlet {
         return req.getParameter(name);
     }
     
+    protected final void setValue(String name, String value) {
+        req.getSession().setAttribute(name, value);
+    }
+    
     protected abstract void init(Iocaste iocaste) throws Exception;
 
 }
