@@ -12,6 +12,7 @@ public abstract class ClientServlet extends HttpServlet {
     private Iocaste iocaste;
     private Exception ex;
     private HttpServletRequest req;
+    private HttpServletResponse resp;
     
     public ClientServlet() {
         try {
@@ -34,6 +35,7 @@ public abstract class ClientServlet extends HttpServlet {
             throw new IOException(ex);
         
         this.req = req;
+        this.resp = resp;
         
         try {
             init(iocaste);
@@ -48,6 +50,10 @@ public abstract class ClientServlet extends HttpServlet {
     
     protected final void setValue(String name, String value) {
         req.getSession().setAttribute(name, value);
+    }
+    
+    protected final void redirect(String url) throws IOException {
+        resp.sendRedirect(url);
     }
     
     protected abstract void init(Iocaste iocaste) throws Exception;
