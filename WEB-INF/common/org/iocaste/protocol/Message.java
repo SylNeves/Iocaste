@@ -36,4 +36,8 @@ public class Message implements Serializable {
     public final Object get(String name) {
         return values.get(name);
     }
+    
+    public final String getString(String name) {
+        return (String)values.get(name);
+    }
 }

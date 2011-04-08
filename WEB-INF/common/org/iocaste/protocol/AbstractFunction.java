@@ -1,5 +1,6 @@
 package org.iocaste.protocol;
 
+import java.io.Serializable;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -54,6 +55,18 @@ public abstract class AbstractFunction implements Function {
         session.getTransaction().commit();
         
         return results;
+    }
+    
+    protected final Object load(Class<?> class_, Serializable object) {
+        Object result;
+        
+        Session session = sessionFactory.getCurrentSession();
+        
+        session.beginTransaction();
+        result = session.get(class_, object);
+        session.getTransaction().commit();
+        
+        return result;
     }
     
     @Override

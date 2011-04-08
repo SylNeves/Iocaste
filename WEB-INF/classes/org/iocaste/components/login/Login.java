@@ -1,7 +1,5 @@
 package org.iocaste.components.login;
 
-import java.util.List;
-
 import org.iocaste.protocol.AbstractFunction;
 import org.iocaste.protocol.Message;
 
@@ -14,26 +12,19 @@ public class Login extends AbstractFunction {
     @Override
     public Object run(Message message) {
         User user;
-        List<?> users;
-        String username = (String)message.get("user");
-        String secret = (String)message.get("secret");
+        String secret = message.getString("secret");
         
-        if (message.getId().equals("login")) {
-            users = select("users", new Object[] {username});
-            
-            if (users == null)
-                return false;
-            
-            for (Object object : users) {
-                user = (User)object;
-                
-                if (user.getName().equals(username) &&
-                        user.getSecret().equals(secret))
-                    return true;
-            }
-        }
+        user = (User)load(User.class, message.getString("user"));
         
-        return false;
+        if (user == null)
+            return false;
+        
+        user.setSecret(user.getSecret().trim());
+        
+        if (!user.getSecret().equals(secret))
+            return false;
+        
+        return true;
     }
 
 }
