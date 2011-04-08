@@ -5,16 +5,12 @@ import org.iocaste.protocol.Message;
 
 public class Login extends AbstractFunction {
 
-    public Login() {
-        addQuery("users", "from User where name = ?");
-    }
+    public Login() { }
     
     @Override
     public Object run(Message message) {
-        User user;
+        User user = (User)load(User.class, message.getString("user"));;
         String secret = message.getString("secret");
-        
-        user = (User)load(User.class, message.getString("user"));
         
         if (user == null)
             return false;
