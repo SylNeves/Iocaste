@@ -3,7 +3,6 @@ package org.iocaste.protocol;
 import java.io.IOException;
 
 public final class Iocaste extends AbstractServiceInterface {
-    private Service service;
     
     public Iocaste() throws IOException {
         initService("index.html");
@@ -16,6 +15,6 @@ public final class Iocaste extends AbstractServiceInterface {
         message.add("user", user);
         message.add("secret", secret);
         
-        return (Boolean)service.call(message);
+        return (Boolean)call(message);
     }
 }
