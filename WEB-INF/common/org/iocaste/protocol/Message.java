@@ -40,4 +40,24 @@ public class Message implements Serializable {
     public final String getString(String name) {
         return (String)values.get(name);
     }
+    
+    public final double getDouble(double name) {
+        return (Double)values.get(name);
+    }
+    
+    public final float getFloat(float name) {
+        return (Float)values.get(name);
+    }
+    
+    public final byte getByte(byte name) {
+        return (Byte)values.get(name);
+    }
+    
+    public final long getLong(long name) {
+        return (Long)values.get(name);
+    }
+    
+    public final short getShort(short name) {
+        return (Short)values.get(name);
+    }
 }
