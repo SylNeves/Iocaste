@@ -2,15 +2,11 @@ package org.iocaste.protocol;
 
 import java.io.IOException;
 
-public final class Iocaste {
+public final class Iocaste extends AbstractServiceInterface {
     private Service service;
     
     public Iocaste() throws IOException {
-        this("http://localhost:8080/iocaste-server/index.html");
-    }
-    
-    public Iocaste(String urlname) throws IOException {
-        service = new Service(urlname);
+        initService("index.html");
     }
     
     public final boolean login(String user, String secret) throws IOException, ClassNotFoundException {

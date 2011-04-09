@@ -9,18 +9,11 @@ import javax.servlet.http.HttpServletResponse;
 
 public abstract class ClientServlet extends HttpServlet {
     private static final long serialVersionUID = 3823216617015765316L;
-    private Iocaste iocaste;
     private Exception ex;
     private HttpServletRequest req;
     private HttpServletResponse resp;
     
-    public ClientServlet() {
-        try {
-            iocaste = new Iocaste();
-        } catch (IOException e) {
-            ex = e;
-        }
-    }
+    public ClientServlet() { }
     
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp)
@@ -38,7 +31,7 @@ public abstract class ClientServlet extends HttpServlet {
         this.resp = resp;
         
         try {
-            init(iocaste);
+            entry();
         } catch (Exception e) {
             throw new ServletException(e);
         }
@@ -56,6 +49,6 @@ public abstract class ClientServlet extends HttpServlet {
         resp.sendRedirect(url);
     }
     
-    protected abstract void init(Iocaste iocaste) throws Exception;
+    protected abstract void entry() throws Exception;
 
 }
