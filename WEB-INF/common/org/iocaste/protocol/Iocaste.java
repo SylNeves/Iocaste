@@ -4,8 +4,8 @@ import java.io.IOException;
 
 public final class Iocaste extends AbstractServiceInterface {
     
-    public Iocaste() throws IOException {
-        initService("/iocaste-server/index.html");
+    public Iocaste(IocasteServlet servlet) throws IOException {
+        initService(servlet, "http://localhost:8080/iocaste-server/index.html");
     }
     
     public final boolean login(String user, String secret) throws IOException, ClassNotFoundException {

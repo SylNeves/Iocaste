@@ -57,8 +57,8 @@ public abstract class IocasteServlet extends HttpServlet {
         resp.sendRedirect(url);
     }
     
-    protected final Service serviceInstance() throws IOException {
-        Service service = new Service(req.getSession().getId());
+    protected final Service serviceInstance(String url) throws IOException {
+        Service service = new Service(req.getSession().getId(), url);
         
         service.setInputStream(req.getInputStream());
         service.setOutputStream(resp.getOutputStream());

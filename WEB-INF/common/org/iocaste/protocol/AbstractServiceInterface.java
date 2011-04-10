@@ -7,8 +7,9 @@ public abstract class AbstractServiceInterface {
     
     public AbstractServiceInterface() { }
     
-    protected final void initService(String urlname) throws IOException {
-        service = new Service(urlname);
+    protected final void initService(IocasteServlet servlet, String url)
+        throws IOException {
+        service = servlet.serviceInstance(url);
     }
 
     protected final Object call(Message message)

@@ -14,10 +14,6 @@ public class Service {
     private OutputStream os;
     private String sessionid;
     
-    public Service(String sessionid) {
-        this.sessionid = sessionid;
-    }
-    
     public Service(String sessionid, String urlname) throws IOException {
         this.sessionid = sessionid;
         url = new URL(urlname);
