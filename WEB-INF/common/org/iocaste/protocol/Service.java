@@ -12,11 +12,15 @@ public class Service {
     private URL url;
     private InputStream is;
     private OutputStream os;
+    private String sessionid;
     
-    public Service() { }
+    public Service(String sessionid) {
+        this.sessionid = sessionid;
+    }
     
-    public Service(String urlname) throws IOException {
-      url = new URL(urlname);
+    public Service(String sessionid, String urlname) throws IOException {
+        this.sessionid = sessionid;
+        url = new URL(urlname);
     }
     
     public final void setInputStream(InputStream is) {
@@ -44,7 +48,9 @@ public class Service {
         
         urlcon.setDoInput(true);
         urlcon.setDoOutput(true);
-  
+        
+        message.setSessionid(sessionid);
+        
         oos = new ObjectOutputStream(urlcon.getOutputStream());
         oos.writeObject(message);
         oos.close();

@@ -4,40 +4,24 @@ import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
-import javax.servlet.ServletException;
-import javax.servlet.http.HttpServlet;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-
 import org.hibernate.SessionFactory;
 
-public abstract class ServerServlet extends HttpServlet {
+public abstract class ServerServlet extends IocasteServlet {
     private static final long serialVersionUID = 7408336035974886402L;
-    private Service service;
     private SessionFactory sessionFactory;
     private Map<String, Function> functions;
     
     public ServerServlet() {
-        service = new Service();
         functions = new HashMap<String, Function>();
         sessionFactory = HibernateListener.getSessionFactory();
         config();
     }
-    
-    @Override
-    protected final void doGet(HttpServletRequest req, HttpServletResponse resp)
-            throws ServletException, IOException {
-        doPost(req, resp);
-    }
 
     @Override
-    protected final void doPost(HttpServletRequest req, HttpServletResponse resp)
-            throws ServletException, IOException {
+    protected final void entry() throws Exception {
         Message message;
         Function function;
-        
-        service.setInputStream(req.getInputStream());
-        service.setOutputStream(resp.getOutputStream());
+        Service service = serviceInstance();
         
         try {
             message = service.getMessage();
