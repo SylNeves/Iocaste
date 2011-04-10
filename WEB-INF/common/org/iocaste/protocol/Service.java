@@ -36,7 +36,7 @@ public class Service {
         return message;
     }
     
-    public final Object call(Message message) throws IOException, ClassNotFoundException {
+    public final Object call(Message message) throws Exception {
         Message response;
         ObjectOutputStream oos;
         ObjectInputStream ois;
@@ -55,17 +55,32 @@ public class Service {
         response = (Message)ois.readObject();
         ois.close();
         
+        if (response.getException() != null)
+            throw new Exception(response.getException());
+        
         return response.get("return");
     }
     
-    public final void messageReturn(Message message, Object object) throws IOException {
+    private final void messageSend(
+            Message message, Object object, Exception ex) throws IOException {
         ObjectOutputStream oos = new ObjectOutputStream(os);
         
         message.clear();
         message.setId(null);
         message.add("return", object);
+        message.setException(ex);
         
         oos.writeObject(message);
         oos.close();
+    }
+    
+    public final void messageReturn(
+            Message message, Object object) throws IOException {
+        messageSend(message, object, null);
+    }
+    
+    public final void messageException(
+            Message message, Exception ex) throws IOException {
+        messageSend(message, null, ex);
     }
 }

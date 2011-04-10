@@ -1,6 +1,5 @@
 package org.iocaste.protocol;
 
-import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -31,12 +30,12 @@ public abstract class ServerServlet extends IocasteServlet {
             return;
         }
 
-        function = functions.get(message.getId());
-        
         try {
+            function = functions.get(message.getId());
             service.messageReturn(message, function.run(message));
-        } catch (IOException e) {
-            e.printStackTrace();
+        } catch (Exception e) {
+            service.messageException(message, e);
+            return;
         }
     }
     

@@ -8,7 +8,7 @@ public final class Iocaste extends AbstractServiceInterface {
         initService(servlet, "http://localhost:8080/iocaste-server/index.html");
     }
     
-    public final boolean login(String user, String secret) throws IOException, ClassNotFoundException {
+    public final boolean login(String user, String secret) throws Exception {
         Message message = new Message();
         
         message.setId("login");
@@ -18,7 +18,7 @@ public final class Iocaste extends AbstractServiceInterface {
         return (Boolean)call(message);
     }
     
-    public final boolean isConnected() throws IOException, ClassNotFoundException {
+    public final boolean isConnected() throws Exception {
         Message message = new Message();
         
         message.setId("is_connected");

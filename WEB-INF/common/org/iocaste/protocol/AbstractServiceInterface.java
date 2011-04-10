@@ -12,9 +12,7 @@ public abstract class AbstractServiceInterface {
         service = servlet.serviceInstance(url);
     }
 
-    protected final Object call(Message message)
-        throws IOException, ClassNotFoundException {
-        
+    protected final Object call(Message message) throws Exception {
         return service.call(message);
     }
     

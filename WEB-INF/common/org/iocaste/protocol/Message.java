@@ -9,6 +9,7 @@ public class Message implements Serializable {
     private Map<String, Object> values;
     private String id;
     private String sessionid;
+    private Exception ex;
     
     public Message() {
         values = new HashMap<String, Object>();
@@ -24,6 +25,10 @@ public class Message implements Serializable {
     
     public final double getDouble(String name) {
         return (Double)values.get(name);
+    }
+    
+    public final Exception getException() {
+        return ex;
     }
     
     public final float getFloat(String name) {
@@ -57,6 +62,10 @@ public class Message implements Serializable {
     /*
      * Setters
      */
+    
+    public final void setException(Exception ex) {
+        this.ex = ex;
+    }
     
     public final void setId(String id) {
         this.id = id;
