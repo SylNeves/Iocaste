@@ -58,12 +58,11 @@ public abstract class IocasteServlet extends HttpServlet {
     }
     
     protected final Service serviceInstance(String url) throws IOException {
-        Service service = new Service(req.getSession().getId(), url);
-        
-        service.setInputStream(req.getInputStream());
-        service.setOutputStream(resp.getOutputStream());
-        
-        return service;
+        return new Service(req.getSession().getId(), url);
     }
     
+    protected final void configureStreams(Service service) throws IOException {
+        service.setInputStream(req.getInputStream());
+        service.setOutputStream(resp.getOutputStream());
+    }
 }

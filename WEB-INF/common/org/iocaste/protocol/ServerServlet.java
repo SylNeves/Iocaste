@@ -23,6 +23,8 @@ public abstract class ServerServlet extends IocasteServlet {
         Function function;
         Service service = serviceInstance(url);
         
+        configureStreams(service);
+        
         try {
             message = service.getMessage();
         } catch (ClassNotFoundException e) {
